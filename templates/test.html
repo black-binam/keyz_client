@@ -1,0 +1,10 @@
+<form method="POST" action="{{url_for('test_html')}}">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    {{ form.nom.label }} {{ form.nom(size=20) }}
+    
+
+    {{ form.prenom.label }} {{ form.prenom(size=20) }}
+    {{ form.tel.label('tel') }} {{ form.tel(size=20) }}
+    {{form.submit}}
+</form>

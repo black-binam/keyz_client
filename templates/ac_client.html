@@ -1,0 +1,292 @@
+{% extends 'home_layout.html' %}
+
+{% block content %}
+	<div class="les_inscrits_container">
+		<h1> Nouveau client</h1>
+		<form id = "form_principal" class='form' action="{{url_for('ac_client')}}" method="POST">
+			{{ client_form.hidden_tag() }}
+			<div class='div_form'>
+				
+				<fieldset class="client_fieldset"> <legend class="top_legend"> Client</legend> 
+					
+					<div class = 'client'>
+						
+						{{client_form.nom.label('Nom')}}<br>
+						{{client_form.nom(class='client_input' , size = 25)}} <br>
+					</div>
+
+					<div class = 'client'>
+						
+						{{client_form.prenom.label('Prenom')}}<br>
+						{{client_form.prenom(class='client_input' , size = 25)}} <br>
+					</div>
+
+					<div class = 'client'>
+						{{ client_form.hidden_tag() }}
+						{{client_form.tel.label('Mobile')}}<br>
+						{{client_form.tel(class='client_input' , size = 25)}} <br>
+					</div>
+
+					<div class = 'client'>
+						
+						{{client_form.email.label('Email')}}<br>
+						{{client_form.email(class='client_input' , size = 25)}} <br>
+					</div>
+
+					<div class = 'client'>
+						
+						{{client_form.rue.label('Numero et nom rue')}}<br>
+						{{client_form.rue(class='client_input' , size = 25)}} <br>
+					</div>
+
+					<div class = 'client'>
+						
+						{{client_form.code_postal.label('Code postal')}}<br>
+						{{client_form.code_postal(class='client_input' , size = 25)}} <br>
+					</div>
+					
+
+					{{client_form.submit}}
+
+					
+				</fieldset>
+			
+
+
+			
+				<fieldset>
+					<legend class ='top_legend'>Formule 2 semaines</legend>
+
+					<div class="filedset_formule">
+						
+							<fieldset class='formule'>
+								<legend>Cours de Jour</legend>
+								{% for rad in choix_formation.radio %}
+									
+									{{rad.label('Oui', for = 'oui_cdj' )}} {{rad(id = 'oui_cdj', value ='oui')}}
+									{{rad.label('Non', for = 'non_cdj' )}} {{rad(id = 'non_cdj', value ='non')}}
+
+
+								{% endfor %}
+							</fieldset>
+
+							<fieldset class="formule">
+								<legend>Cours du Soir </legend>
+								{% for rad in choix_formation.radio %}
+									{{rad.label('Oui', for = 'oui_cds')}} {{rad(id = 'oui_cds', value ='oui')}}
+									{{rad.label('Non' , for = 'non_cds')}} {{rad(id ='non_cds', value ='non')}}
+
+								{% endfor %}
+							</fieldset>
+
+							<fieldset class='formule'>
+								<legend> E-learning</legend>
+
+								{% for rad in choix_formation.radio %}
+									{{rad.label('Oui', for = 'oui_elearning')}} {{rad(id = 'oui_elearning', value ='oui')}}
+									{{rad.label('Non' , for = 'non_elearning')}} {{rad(id ='non_elearning', value ='non')}}
+
+								{% endfor %}
+							</fieldset>
+							
+					</div>
+
+					
+						<fieldset class='formule session'>
+							<legend>Date de session</legend>
+							<div class="class_entree_date">
+								<legend>Date de début de session</legend>
+								{{choix_formation.date(type = 'date' , class='calandar' )}}
+								{{choix_formation.date(class ='test_date entree')}}
+							</div>
+
+							<div class="class_entree_date">
+								<legend>Date de fin de session</legend>
+								{{choix_formation.date(type = 'date', class='calandar'  )}}
+								{{choix_formation.date(class ='test_date sortie')}}
+							</div>
+						</fieldset>
+
+						<fieldset class='formule session'>
+							<legend>Date Examen</legend>
+							<div class="class_entree_date">
+								
+								{{client_form.date_exam(class='client_input financement_input')}}
+								
+							</div>
+
+							
+						</fieldset>
+
+				</fieldset>
+
+
+				<fieldset>
+					<legend class="top_legend">Financement</legend>
+
+					<fieldset class="formule financement">
+						<legend>Prix formation </legend>
+
+						{{choix_formation.prix(class = 'client_input financement_input', value='0' )}}
+					</fieldset>
+
+					<fieldset class="formule financement">
+						<legend>Mode de financement</legend>
+						{{choix_formation.financement(class = 'client_input financement_input' )}}
+					</fieldset>
+
+					<!-- solde cpf !-->
+					<fieldset class="formule financement">
+						<legend>Solde CPF</legend>
+						{{choix_formation.solde_cpf(class = 'client_input financement_input' )}}
+					</fieldset>
+
+					<fieldset class="formule financement">
+						<legend>Reste à payer</legend>
+						{{choix_formation.reste_a_payer(class = 'client_input financement_input' )}}
+					</fieldset>
+
+					
+					<fieldset class="formule financement">
+						<legend>Accompte </legend>
+
+						{{choix_formation.accompte(class = 'client_input financement_input', value='0' )}}
+					</fieldset>
+
+					<fieldset class="formule financement">
+						<legend> Ristourne</legend>
+
+						{{choix_formation.ristourne(class = 'client_input financement_input', value='0' )}}
+					</fieldset>
+
+
+					
+				</fieldset>
+			</div>
+			
+
+			
+		</form>
+	</div>
+
+
+	
+
+<script type="text/javascript">
+	var btn_submit = document.getElementById('submit')
+	var form = document.getElementById('form_principal')
+
+	btn_submit.addEventListener('click', function(e){
+		e.preventDefault();
+
+		var req = new XMLHttpRequest();
+		req.onreadystatechange = function(){
+			if (req.readyState === 4){
+				alert('ca fonctionne')
+			}
+		}
+
+		req.open('POST', "{{url_for('ac_client')}}", true)
+		var data = new FormData(form)
+		req.send(data)
+	})
+		
+
+
+	/*changement de nom des radio*/
+	rad_cdj = document.getElementById('oui_cdj')
+	rad_cdj.name='cours_de_jour'
+	rad_cdj = document.getElementById('non_cdj')
+	rad_cdj.name='cours_de_jour'
+
+	rad_cdj = document.getElementById('oui_cds')
+	rad_cdj.name='cours_du_soir'
+	rad_cdj = document.getElementById('non_cds')
+	rad_cdj.name='cours_du_soir'
+
+	rad_cdj = document.getElementById('oui_elearning')
+	rad_cdj.name='elearning'
+	rad_cdj = document.getElementById('non_elearning')
+	rad_cdj.name='elearning'
+
+	
+	
+
+
+	valider = document.querySelector('#submit');
+
+	valider.addEventListener('click', function(e){
+		finance_value = document.querySelector('.financement_input').value
+		if (finance_value == 'choix'){e.preventDefault()};
+		console.log(finance_value)
+	} );
+	
+
+
+	calandar = document.getElementsByClassName('calandar')
+	calandar[0].name = 'date_entree'
+	calandar[1].name = 'date_sortie'
+
+	
+	entree = document.querySelector('.entree');
+	sortie = document.querySelector('.sortie');
+
+	function cal_entree(){
+			if (calandar[0].value ==''){entree.value= ''}
+
+			else {
+			date_fr = calandar[0].value.split('-');
+			entree.value = date_fr[2]+'/'+date_fr[1]+'/'+date_fr[0]; };
+		}
+
+
+	function cal_sortie(){
+			if (calandar[1].value ==''){sortie.value= ''}
+
+			else {
+			date_fr = calandar[1].value.split('-');
+			sortie.value = date_fr[2]+'/'+date_fr[1]+'/'+date_fr[0]; };
+		}
+
+
+	var cale;
+	var cals;
+
+	//fonction stopInterval
+	function stopInterval(value){
+	if (entree.value !='')
+		clearInterval(value)
+	};
+
+	calandar[0].addEventListener('mouseup', function(){cale = setInterval( cal_entree , 20 ) })
+	calandar[0].addEventListener('mousedown', function(){stopInterval(cale) })
+
+	calandar[1].addEventListener('mouseup', function(){cals = setInterval( cal_sortie , 20 ) })
+	calandar[1].addEventListener('mousedown', function(){stopInterval(cals) })
+
+	entree.addEventListener('click', function(){
+		stopInterval();
+
+		function entree_value(){
+			entree_val = entree.value;
+			if (entree_val == ''){ calandar[0].value =''}
+		};
+
+		setInterval(entree_value,20)
+
+	});
+
+	/*
+	button = document.querySelector('#button');
+
+	button.addEventListener('click', function(){
+		form = document.querySelector('.form');
+		
+		form.action ="/inscription_cma"; console.log("j'ai cliké")})
+
+	*/
+
+
+</script>
+
+{% endblock %}

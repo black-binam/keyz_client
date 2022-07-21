@@ -1,0 +1,77 @@
+Entre les soussignés :
+Keyz Formation enregistré sous le numéro de déclaration d'activité 11941003294 auprès de la Direction Régionale des Entreprises, de la Concurrence, de la Consommation, du Travail et de l’Emploi (DIRECCTE)
+
+ET
+
+(Nom, prénom et adresse du cocontractant)
+{nom_client} {prenom_client}
+
+Demeurant au
+
+{adresse_client_rue}
+{code_postal}
+
+ci-après désigné le stagiaire.
+
+
+Article 1 : Objet
+
+En exécution du présent contrat, l’organisme de formation s’engage à organiser l’action de formation intitulée : FORMATION VTC.
+
+Article 2 : Nature et caractéristiques de l’action de formation
+
+L’action de formation entre dans la catégorie des actions de formation prévues par l’article L.6313-1 du Code du travail. Elle a pour objectif de préparer le candidat à l’examen VTC organisé par la Chambre de Métier.
+A l’issue de la formation, une attestation de formation sera délivrée au stagiaire. Sa durée est fixée à {duree_formation} heures. Le programme de l’action de formation figure en annexe du présent contrat.
+
+L'action de formation débutera le {date_debut_formation} et prendra fin le {date_fin_formation}. Le stagiaire est invité à se présenter muni d'un cahier de 100 pages, d'au moins d'un stylo monochrome. Il est convenu que les cours se déroulent de {horaire_formation}.
+
+
+Article 3 : Niveau de connaissances préalables nécessaire avant l’entrée en formation.
+
+Etre titulaire d’un permis B non probatoire
+
+Article 4 : Organisation de l’action de formation
+
+L’action de formation aura lieu du au au 43 rue du Commandant Rolland, 93350 Le Bourget également sur www.keyz-formation.fr.
+
+Le(s) formateur(s) sera/seront :
+	{prenom_formateur} {nom_formateur}
+Les conditions générales dans lesquelles la formation est dispensée, notamment les moyens pédagogiques et techniques, les modalités de contrôle de connaissances, sont les suivantes :
+
+	Un rétroprojecteur.
+
+Article 5 : Modalités d’évaluation et de sanction
+
+Les candidats sont évalués au cours de la formation au moins de questionnaires à choix multiple et par des questionnaires à réponse courte.
+
+Article 6 : Délai de rétractation
+
+A compter de la date de signature du présent contrat, le stagiaire dispose d’un délai de :
+
+- quatorze jours pour se rétracter.
+Le stagiaire souhaitant se rétracter en informe l’organisme de formation par lettre recommandée avec accusé de réception. Dans ce cas, aucune somme ne peut être exigée du stagiaire.
+
+Article 7 : Dispositions financières
+
+Le prix de l’action de formation est fixé à {prix_formation} euros.
+Le stagiaire s’engage à verser {somme_mobilise} € par {mode_financement} et {somme_fi_perso} € par financement personnel.
+
+Les frais d'inscription à la chambre de métier sont compris dans le coût de la formation et sont à la charge du centre de formation.
+
+Après un délai de rétractation mentionné à l’article 5 du présent contrat, le stagiaire effectue un premier versement d’un montant de {accompte} €. Cette somme ne peut être supérieure à 30 % du prix dû par le stagiaire. Le paiement du solde, à la charge du stagiaire, est échelonné au fur à mesure du déroulement de l’action de formation, après dispensation des heures de formation, selon le calendrier suivant:
+350 euros toutes les 10 heures de formation réalisées dans la limite du temps de formation convenu.
+
+Article 8 : Interruption du stage
+
+En cas de cessation anticipée de la formation du fait de l’organisme de formation ou l’abandon du stage par le stagiaire pour un autre motif que la force majeure dûment reconnue, le présent contrat est résilié selon les modalités financières suivantes :
+
+Keyz Formation s’engage à proposer une autre date de formation au candidat.
+Si le stagiaire est empêché de suivre la formation par suite de force majeure dûment reconnue, le contrat de formation professionnelle est résilié. Dans ce cas, seules les prestations effectivement dispensées sont dues au prorata temporis de leur valeur prévue au présent contrat.
+
+Article 9 : Cas de différend
+
+Si une constatation ou un différend n’ont pu être réglés à l’amiable, le tribunal de commerce sera seul compétent pour régler le litige.
+Fait en double exemplaire, à Le Bourget le , {date_signature}
+
+Pour le stagiaire                                                           Pour l’organisme
+(nom et qualité du signataire)                                       Patrick Binam

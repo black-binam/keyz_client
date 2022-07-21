@@ -1,0 +1,610 @@
+/* CSS layout ********************/
+body{
+	margin: 0;
+	background: #f2f5fc;
+}
+h1{
+	text-align: center;
+	font-family: helvetica;
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 5vh;
+	margin-block-end: 5px;
+	margin-block-start: 35px;
+	color: #707b95;
+}
+
+.main_block_container{
+	display: flex;
+}
+
+.les_inscrits_container{
+	margin-left: 250px;
+	margin-top: 10px;
+	width: 85vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/* la barre de menu sur le coté*/
+.side_nav{
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	padding: 10px;
+	height: 100%;
+	background: #ffffff;
+	z-index: 2;
+	box-shadow: 2px 0 5px #bbc5dc;
+	color: grey;
+	width: 210px;
+}
+
+.side_nav_btn_search:nth-child(1) .icons{
+	font-size: 20px;
+}
+
+/* Design search input par nom*/
+.side_nav_btn_search{
+	position: relative;
+	background: white;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	box-shadow: 2px 2px 10px #f0f0f0;
+}
+
+
+.side_nav_btn_search input{
+	padding: 8px 5px;
+	border: none;
+	outline: none;
+	width: 70%;
+	/* inset: unset; */
+}
+
+.search_advanced{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 0.8rem;
+}
+
+.search_advanced::after{
+	content: '';
+	position: relative;
+	width: 25%;
+	height: 2px;
+	background: black;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+
+}
+
+.nom_societe{
+	margin-bottom: 35px;
+}
+
+.icons{
+	width: fit-content;
+}
+
+.btn_box{
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 20vh;
+}
+
+
+.side_nav_btn_container,.side_nav_btn_search{
+	display: flex;
+	align-items: center;
+}
+
+
+.nom_societe:before{
+	content:'';
+	position:absolute;
+	width:100%;
+	height:2px;
+	background: rgb(217, 214, 214);
+	transform:translateY(60px) translateX(-10px)
+
+}
+
+.nom_societe h2{
+	font-family: Sylfaen;
+	color: rgb(0 0 0);
+	font-size: 1.5rem;
+}
+
+/* logo à coté des bouttons */
+.btn_logo{
+	padding: 0 5px;
+}
+.side_nav_btn_container button{
+	padding: 10px 0;
+	min-width: 150px;
+	background: none;
+	text-align: left;
+	border: none;
+	cursor: pointer;
+}
+
+
+
+
+.side_nav_btn_container a{
+	text-decoration: none;
+	color: grey;
+	font-weight: bold;
+	
+	
+	
+	
+}
+
+
+
+
+/******* CSS PAGE nouveau client ************* */
+.client{
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.client_input{
+	border-radius: 5px;
+	border:none;
+	background:#f8f9fa;
+	height: 22px;
+	border-bottom:solid 2px darkgrey;
+	outline: none;
+	padding-left: 5px
+}
+
+.client_input:hover{
+	background:lightgrey;
+}
+
+.div_form{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: fit-content;
+	margin: auto auto;
+	background: white;
+	border-radius: 30px;
+	padding: 20px;
+}
+
+fieldset{
+	/* border:2px solid; */
+	/* margin-bottom: 50px; */
+	border-radius: 5px;
+	box-shadow: 5px 2px 10px #4797b763;
+	border:
+	none;
+	width: 200px;
+}
+.client_fieldset{
+	display: flex;
+	flex-direction: column;
+
+	
+}
+
+.formule{
+	margin-bottom: 20px;
+	border:none;
+	box-shadow: 5px 5px 10px #f1f1f1;
+}
+
+.calandar{
+	margin-bottom: 15px;
+	margin-top: 5px;
+	background: #e0fbfc;
+	border-radius: 5px;
+	border:none;
+	width: 170px;
+	height: 22px;
+	outline: none;
+
+}
+.session{
+	color:red;
+	padding-top: 20px
+}
+
+.top_legend{
+	background:#d90429;
+	color: white;
+	width: 95%;
+	border-top-right-radius:10px;
+	border-top-left-radius:  10px;
+	padding: 5px;
+}
+
+.formule>legend{
+	background: #2ec4b6;
+	border-top-right-radius:10px; 
+	color: white;
+	width: 80%
+}
+
+.financement_input{
+	width: 98%;
+	
+}
+.class_entree_date{
+	
+	height: 55px
+}
+.test_date{
+	position: relative;
+	top:-37px;
+	width: 140px;
+	background: #e0fbfd;
+	height: 20px;
+	border:none;
+	
+}
+
+
+/******************** CSS les inscrits *****************/
+
+.candidat{
+	margin-bottom: 15px;
+	margin-right: 30px;
+	padding: 15px;
+	width: 250px;
+	box-shadow: 2px 2px 5px #bbc4da;
+	border-radius: 20px;
+	background: #ffffff;
+	/*border: solid 2px #a8a8a8;*/
+}
+
+.candidat span:nth-child(14)::before{
+	content: "";
+	position: absolute;
+	background: #d3dae9;
+	width: 280px;
+	height: 4px;
+	margin-top: 30px;
+	margin-left: -15px;
+}
+
+.nom{
+	font-weight: bold;
+}
+.solde_cpf{
+	font-weight: bold;
+}
+
+.candidat select, .candidat input[type='text'], .candidat input[id='email']{
+	width: 100px;
+	position: absolute;
+	margin-left: 120px;
+	border: none;
+	border-radius: 5px;
+	background: #f2f5fc;
+	padding: 1px 5px;
+	outline: none;
+	color: #000000;
+	font-weight: bold;
+}
+
+
+.block_input{
+	margin-bottom: 10px;
+}
+
+.btns_group{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 4vh;
+}
+
+.btns_group button, .btns_group input{
+	cursor: pointer;
+}
+
+input[name='submit']{
+	position: relative;
+	border: none;
+	padding: 4px ;
+	width: 100px;
+	background: #20a4f3;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+input[name='submit_btn']{
+	position: static;
+	top: 0
+
+}
+input[name ="nom_client"], input[name ="date_session"],
+select[id='etat_dossier'],select[id='date_exam']{
+	position: relative;
+	margin-left: 0;
+	/* width: 150px; */
+	padding: 2px 8px;
+	border-radius: 20px;
+	outline: none;
+	/* border: solid 1px grey; */
+}
+/* input chercher par nom et date de session*/
+input[id ="nom_client"], input[name ="date_session"], select[id='etat_dossier'], select[id='date_exam']{
+	border: solid 1px grey
+}
+
+span{
+	/* width: 200px; */
+	display: flex;
+	margin-bottom: 5px;
+
+}
+
+.btn_modifier{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	border-radius: 5px;
+	background:#37C0B0;
+	width: 60px;
+	padding: 4px 10px;
+	cursor: pointer;
+	font-size: 0.8em;
+	font-weight: bold;
+	width: 65px;
+	color:  white;
+
+	
+}
+.list_date_exam{
+	z-index: -1;
+}
+
+.input_date_examen{
+	z-index: 2
+}
+
+.list_etat_dossier{
+	z-index: 1;
+	
+}
+
+.fieldset{
+	display: flex;
+	flex-wrap: wrap;
+	min-width: 70vw;
+	justify-content: center;
+}
+
+fieldset{
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
+
+legend{
+	color: white;
+	background: red;
+}
+
+
+
+/***** CSS search *********/
+
+
+
+.search_option_container{
+	position: relative;
+	width: auto;
+	background: white;
+	overflow: hidden;
+	max-height: 0;
+	transition: 0.5s;
+
+}
+
+.search_option{
+	display: flex;
+	flex-direction: column;
+	width: auto;
+	/* justify-content: space-between; */
+}
+
+.search_option form{
+	
+padding: 10px;
+	
+margin-left: 5px;
+	
+margin-right: 5px;
+	
+display: flex;
+	
+flex-direction: column;
+	
+justify-content: space-between;
+}
+
+.search_option input[value = 'valider']{
+	min-width: 150px;
+	border: none;
+	background: #dddddd;
+	padding: 4px 0;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 20px;
+	transition:0.4s
+}
+
+.search_option input[value = 'valider']:hover{
+	background: #31a3bd;
+	color:white
+}
+
+
+.input_cherche {
+
+	width: 100%;
+	padding: 0 8px;
+}
+
+/********* CSS dashboard ***************/
+.barre_up_container{
+	color: #bbbbbb;
+	position: fixed;
+	top: 0;
+	margin-left: 230px;
+	width: 100%;
+	height: 5vh;
+	background: #ffffff;
+	z-index: 1;
+	box-shadow: 0 2px 5px #bbc5dc;
+}
+
+.dashboard{
+	margin-block: 5px;
+    padding-left: 10px;
+
+}
+
+.data_ca{
+	margin-top: 15vh;
+	display: flex;
+	justify-content: safe flex-end;
+	margin-left: 240px;
+	background: white;
+	z-index: 3;
+}
+
+.fieldset_CA{
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: column;
+	/* background: black; */
+	border-bottom: solid #00000123;
+	color: white;
+	width: fit-content;
+	position: fixed;
+	
+	
+z-index: 3;
+}
+
+.fieldset_CA legend{
+	width: 58vw; 
+	padding: 4px;
+	background: #ffffff;
+	color: black;
+	font-size: 1.4rem;
+}
+
+
+.ca{
+	
+background: #084b83;
+display: flex;
+flex-direction: column;
+text-align: center;
+margin-bottom: 10px;
+}
+
+.ca span{
+	order: 2;
+	font-family: helvetica;
+	font-stretch: semi-condensed;
+	color: white;
+	font-weight: bold;
+	background: #62dccb;
+	padding: 0 5px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 0;
+}
+
+.ca h4{
+	margin-block: 10px;
+	font-size: 2rem;
+}
+
+.info_session{
+	display: flex;
+	justify-content: space-around;
+	padding: 0 15px;
+	width: 55%;
+}
+
+.info_session div{
+	position: relative;
+	bottom: 20px;
+	height: 20vh;
+	width: 20vw;
+	border: solid;
+	background: #011627;
+	border-radius: 10px;
+	padding: 20px;
+	z-index: 2;
+	color: white;
+}
+
+
+/****** CSS info_par_client ************/
+.fiche_cli_container{
+	margin-top: 22vh;
+	margin-bottom: 5vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-left: 250px;
+	margin-top: 250px;
+}
+
+/*** flash message *************/
+.js_flash_msg_container{
+	display: none;
+	z-index: 5;
+    text-align: center;
+    height: 100vh;
+    position: absolute;
+    background: #00000096;
+    width: 100vw;
+}
+
+.flash_msg_container{
+    z-index: 5;
+    text-align: center;
+    height: 100vh;
+    position: absolute;
+    background: #00000096;
+    width: 100vw;
+    display: flex;
+}
+
+.message{
+    /* z-index: 200; */
+    text-align: center;
+    position: relative;
+    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #e71d36;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
