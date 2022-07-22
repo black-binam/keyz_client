@@ -17,6 +17,7 @@ from functions import *
 
 
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "moimeme"
 
@@ -132,7 +133,8 @@ def ac_client():
 	choix_formation = choix_forma()
 	info_dossier = dossier()
 	data_profile_pic = open_json() # a list
-
+	session['profile_pic'] = data_profile_pic[1]
+	
 	if request.method =='POST':
 		session['user_data'] =  dict(request.form)
 
@@ -205,6 +207,7 @@ def inscription_cma():
 
 @app.route('/les_inscrits', methods = ['POST', 'GET'])
 def les_inscrits():
+	
 	recherche = search()
 
 	client = id_client()
@@ -218,7 +221,7 @@ def les_inscrits():
 	del data[-1]
 	lst_data = []
 	les_sessions = []
-
+	
 	session['lst_data'] = lst_data
 
 	# rajout dans lst_data des donnees transformées en dictionnaire
@@ -315,7 +318,7 @@ def les_inscrits():
 	
 	return render_template('les_inscrits.html', data_file = lst_data, id_client = client,
 		choix_formation = choix_formation, dossier = info_dossier, les_sessions = les_sessions, recherche = recherche,
-		 date_ang = '2021-02-11')
+		 date_ang = '2021-02-11', profile_pic = session.get('profile_pic'))
 
 
 
