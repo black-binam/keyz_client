@@ -17,7 +17,6 @@ from functions import *
 
 
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "moimeme"
 
@@ -458,7 +457,7 @@ def date_exam():
 
 		return  render_template('les_inscrits.html', data_file = lst_data, id_client = client,
 			choix_formation = choix_formation, dossier = info_dossier,
-			 recherche = recherche, date_exam = date_exam, etat_dossier = etat_dossier)
+			 recherche = recherche, date_exam = date_exam, etat_dossier = etat_dossier, profile_pic =session.get('profile_pic'))
 
 
 @app.route('/download')
