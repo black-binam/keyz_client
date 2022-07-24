@@ -148,9 +148,6 @@ h1{
 	color: grey;
 	font-weight: bold;
 	
-	
-	
-	
 }
 
 
@@ -333,8 +330,9 @@ input[name='submit_btn']{
 	top: 0
 
 }
-input[name ="nom_client"], input[name ="date_session"],
-select[id='etat_dossier'],select[id='date_exam']{
+
+input[name ="nom_client"], .block_input input[name ="date_session"],
+.block_input select[id='etat_dossier'], .block_input select[id='date_exam']{
 	position: relative;
 	margin-left: 0;
 	/* width: 150px; */
@@ -344,7 +342,7 @@ select[id='etat_dossier'],select[id='date_exam']{
 	/* border: solid 1px grey; */
 }
 /* input chercher par nom et date de session*/
-input[id ="nom_client"], input[name ="date_session"], select[id='etat_dossier'], select[id='date_exam']{
+input[id ="nom_client"], input[name ="date_session"], .side_nav_btn_search select[id='etat_dossier'], .side_nav_btn_search select[id='date_exam']{
 	border: solid 1px grey
 }
 
@@ -352,7 +350,6 @@ span{
 	/* width: 200px; */
 	display: flex;
 	margin-bottom: 5px;
-
 }
 
 .btn_modifier{
@@ -377,7 +374,7 @@ span{
 }
 
 .input_date_examen{
-	z-index: 2
+	z-index: 2;
 }
 
 .list_etat_dossier{
@@ -385,10 +382,11 @@ span{
 	
 }
 
+
 .fieldset{
 	display: flex;
 	flex-wrap: wrap;
-	min-width: 70vw;
+	min-width: 65vw;
 	justify-content: center;
 }
 
