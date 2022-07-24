@@ -1,19 +1,11 @@
-<<<<<<< Updated upstream
 Lib/
-*.json
-*.txt
-Include
+Include/*
 *.vscode
 *.cfg
 debug*
 test*
 send_email*
-=======
-send_email*
-Lib/*
-Include/*
-data*
-*.log
-*.cfg
+.vscode
 edof*
->>>>>>> Stashed changes
+data*
+test*
