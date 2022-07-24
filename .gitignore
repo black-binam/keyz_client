@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Lib/
 *.json
 *.txt
@@ -7,3 +8,12 @@ Include
 debug*
 test*
 send_email*
+=======
+send_email*
+Lib/*
+Include/*
+data*
+*.log
+*.cfg
+edof*
+>>>>>>> Stashed changes
