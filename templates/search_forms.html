@@ -1,0 +1,56 @@
+<div class="search_option_container">
+		<div class="search_option">
+
+			{# recherche par Nom #}
+			<form method="POST" action="{{url_for('layout')}}">
+				<div class="block_input">
+					{{recherche.nom_client.label('Cherchez')}} <br>
+					{{recherche.nom_client (placeholder ="nom client" )}}
+				</div>
+
+				{{recherche.submit_btn(value = "valider")}}
+			</form> <br>
+			<!----------------------------------------------------!--> 
+
+
+
+			<!-------------------------------------------------------!--> 
+			{# recherche par date de session de formation #}
+			<form method="POST" action="{{url_for('les_inscrits')}}">
+				<div class="block_input">
+					{{recherche.date_session.label('Date session')}} <br>
+					{{recherche.date_session ( placeholder ="dd/mm/yyyy" )}} 
+				</div>
+				
+
+				<div class="block_input">
+					{{ dossier.etat_dossier.label('Etat dossier') }} <br>
+					{{ dossier.etat_dossier (class = "input_cherche")  }}
+
+				</div>
+
+				
+				{{recherche.submit_btn(value = "valider")}}
+			</form><br>
+
+
+			<!---------------------------------------------------------!-->
+
+			<form method="POST" action="{{url_for('date_exam')}}">
+				<div class="block_input">
+					{{ id_client.date_exam.label('Date Examen') }} <br>
+					{{ id_client.date_exam (class = "input_cherche")  }}
+
+				</div>
+
+				<div class="block_input">
+					{{ dossier.etat_dossier.label('Etat dossier') }} <br>
+					{{ dossier.etat_dossier (class = "input_cherche")  }}
+
+				</div>
+				
+				
+				{{recherche.submit_btn(value = "valider")}}
+			</form>
+		</div>
+	</div>

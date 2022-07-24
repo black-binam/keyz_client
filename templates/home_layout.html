@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="static/home.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://kit.fontawesome.com/b0e21e4f22.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+	<link rel="stylesheet" href="../static/pic_profile.css"
+
+	
+	<title>Gestionnaire</title>
+</head>
+<body>
+
+	
+	{% with messages = get_flashed_messages() %}
+		
+			{% if messages %}
+			<div class="flash_msg_container">
+				{% for message in messages %}
+					<div class="message"><h4> {{message}}</h4></div>
+				{% endfor %}
+			</div>
+			{% endif %}
+		
+	{% endwith %}
+
+	
+	<div class="js_flash_msg_container">
+		
+			<div class="message"><h4> </h4></div>
+		
+	</div>
+	
+
+	<div class="main_block_container">
+		
+		<div class="side_nav">
+			{# Nom de la sociéte #}
+			<div class="side_nav_btn_container nom_societe"> 
+
+				<div class="btn_logo" >
+					<div class="pic_div">
+						<form method="post" enctype="multipart/form-data" method="'post" action="logo" id="form_pic_profile">
+							<input type='file' id="file_input" name="file">
+							<div class="change_pic_msg">
+								
+								<img src="../static/img/{{profile_pic['new_pic']}}" width="100%">
+							</div>
+							<!--<img src="../static/img/costar.png">!-->
+							<input type="submit" value="submit" id="submit_btn">
+						</form>
+					</div>
+				</div> 
+
+				<h2>Keyz Formation</h2>
+
+			</div>
+
+			{# ---------la bare de recherche --------------------#}
+			<div>
+				<div class="side_nav_btn_search"> 
+
+					<label class="btn_logo" for='search_input'>
+						<span class="material-symbols-outlined icons">
+							person_search
+						</span>
+					</label> 
+
+					<form method="POST" action="{{url_for('layout')}}">
+						<input type="text" id='search_input' name="nom_client" placeholder="Nom candidat">
+					</form> 
+				</div>
+
+				<div  class = 'search_advanced'>Recherche avancée</div>
+			</div>
+
+			<div class="form_search_advanced">
+				
+				{% if recherche %}
+					{% include 'search_forms.html' %}
+					
+
+				{% endif %}
+			</div>
+
+
+
+
+			<div class="btn_box">
+
+				<div class="side_nav_btn_container"> 
+
+					<div class="btn_logo">
+						<span class="material-symbols-outlined icons">
+							home
+						</span>
+					</div> 
+
+					<button > <a href="{{url_for('ac_client')}}"> Home </a></button> 
+
+				</div>
+
+
+				<div class="side_nav_btn_container"> 
+					<div class="btn_logo">
+						<span class="material-symbols-outlined icons ">
+							group
+						</span>
+					</div> 
+
+					<button> <a href="{{url_for('les_inscrits')}} "> Les inscrits </a> </button> 
+				</div>
+
+
+				<div class="side_nav_btn_container"> 
+					<div class="btn_logo">
+						<span class="material-symbols-outlined">
+							file_copy
+						</span>
+					</div> 
+
+					<button id="btn_contrat" ><a href="{{url_for('contrat')}}"> Lancer le Contrat </a></button> 
+				</div>
+				
+			</div>
+
+		</div>
+
+		{% block content %}
+
+
+		{% endblock %}
+	</div>
+
+	<div class="barre_up_container">
+		<h4 class="dashboard">DASHBOARD</h4>
+		
+	</div>
+
+	<script type="text/javascript">
+		
+		/*on va créer une session qui va sauvegarder les données nécessaire pour 
+	pour générer le contrat de formation */
+	btn_contrat = document.getElementById('btn_contrat')
+
+	btn_contrat.addEventListener('click', function(){
+		nom_client = document.getElementById('nom').value
+		sessionStorage.setItem('nom_client',nom_client)
+
+
+		prenom_client = document.getElementById('prenom').value
+		sessionStorage.setItem('prenom_client',prenom_client)
+
+
+		date_entree = document.querySelector('.entree').value
+		sessionStorage.setItem('date_entree',date_entree)
+
+		date_sortie = document.querySelector('.sortie').value
+		sessionStorage.setItem('date_sortie',date_sortie)
+
+		moyen_financement = document.querySelector('#financement').value
+		sessionStorage.setItem('moyen_financement',moyen_financement)
+
+		rue = document.querySelector('#rue').value
+		sessionStorage.setItem('rue',rue)
+
+		code_postal = document.querySelector('#code_postal').value
+		sessionStorage.setItem('code_postal',code_postal)
+
+		prix = document.querySelector('#prix').value
+		sessionStorage.setItem('prix',prix)
+
+		solde_cpf = document.querySelector('#solde_cpf').value
+		sessionStorage.setItem('solde_cpf',solde_cpf)
+
+		reste_a_payer = document.querySelector('#reste_a_payer').value
+		sessionStorage.setItem('reste_a_payer',reste_a_payer)
+
+	});
+
+
+	/*------------------ Ouverture / fermeture recherche avancée ------------------*/
+
+	btn_adv_search = document.querySelector('.search_advanced')
+	
+
+	btn_adv_search.addEventListener('click', ()=>{
+		box_search = document.querySelector('.search_option_container')
+
+		if(box_search.style.maxHeight ){
+			box_search.style.maxHeight = null
+		}else{
+			box_search.style.maxHeight = box_search.scrollHeight+'px'
+		}
+
+	})
+
+	/*** bouton pour générer le contrat de formation ------------------***/
+	btn_contrat = document.querySelector('#btn_contrat')
+	btn_contrat.addEventListener('click', (e)=>{
+		
+		form = document.querySelector("#form_principal")
+		lst_data = [form['nom'].value, form['email'].value, form['tel'].value,form['code_postal'].value]
+
+		lst_data.forEach(element => {
+			if(element == ''){
+				e.preventDefault()
+				/****----------------- on fait disparaitre le message flashed --------*/
+				msg_container = document.querySelector('.js_flash_msg_container')
+				msg_container.style.display = 'flex'
+				msg = document.querySelector('.message')
+				msg.innerHTML = "<h4> Tous les champs ne sont pas remplis</h4>"
+
+				msg_container.addEventListener('click', ()=>{
+					msg_container.style.display = 'None'
+				})
+				/****----------------- ---------------------------------------- --------*/
+				
+			}
+		})
+		
+
+		console.log(form)
+	})
+
+
+	/****----------------- on fait disparaitre le message flashed --------*/
+	
+	/***** parti logo ********** */
+		/***** Ajax part ****/
+		function send_pic(to_send){
+			var req = new XMLHttpRequest()
+			req.onreadystatechange = function(){
+				if (this.readyState == 4 && this.status == 200){
+					console.log('it is ok')
+
+				}
+
+			}
+			try{
+				req.onload = function(data){
+					
+					change_pic_msg_div = document.querySelector('.change_pic_msg img')
+					my_data = JSON.parse(data.target.responseText)
+					change_pic_msg_div.src = "../static/img/"+my_data['profile_pic_name']
+					
+				}
+			}catch{
+				console.log('error occures on')
+			}
+		
+			var formdata = new FormData();
+			formdata.append('file',to_send[0]);
+			v = to_send;
+
+			req.open('POST','logo',true);
+			/*req.setRequestHeader("Content-type", "multipart/form-data")*/
+			req.send(formdata);
+
+			
+		}
+				
+
+		function change_profile_pic(){
+			file_input = document.querySelector("#file_input")
+			
+			file_input.addEventListener('change', (e)=>{
+			
+                interval = setInterval(()=>{
+
+                    if(e.path[0].files.length >0){
+                        btn_submit=document.querySelector("#submit_btn")
+                        btn_submit.addEventListener('click', (ev)=>{
+							ev.preventDefault()
+							send_pic(e.path[0].files)
+							e.stopPropagation()
+							console.log(e)
+							clearInterval(interval)
+						})
+
+						btn_submit.click()
+                        console.log('success')
+						
+                        
+
+						return e
+                        }
+
+                    }, 1000)
+				
+				
+			})
+			
+		}
+		
+		
+			
+		var v=change_profile_pic()
+			
+	
+	</script>
+
+</body>
+</html>

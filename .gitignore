@@ -1,0 +1,11 @@
+Lib/*
+*.json
+*.txt
+Include/*
+*.vscode
+*.cfg
+debug*
+test*
+send_email*
+edof*
+conv*

@@ -1,0 +1,101 @@
+
+{% include 'home_layout.html' %}
+
+
+{% block content %}
+	<div class="fiche_cli_container">
+		{% for dico in lst_client %}
+			<div >
+				
+				<form class="candidat" method="POST" action="{{url_for('les_inscrits')}}" id="form">
+					{{ id_client.csrf_token }}
+					{{ id_client.hidden_tag() }}
+					<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+					<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+					<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+					<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+					<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+					<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+					<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+					<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+					<span>Mot de passe: {{dico.mot_de_pass}} <br></span>
+					<span>E-Mail: {{id_client.email(value=dico.email)}} <br></span>
+
+					<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="etat_dossier" value="{{dico.etat_dossier}}" ><br></span>
+
+					<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="date_examen" value="{{dico.date_exam}}" ></span> 
+
+					<div class="btns_group">
+						<button formaction="{{url_for('generate_contract')}}" class="gen_contrat" >Generate contract</button>
+						{{id_client.submit(class="submit")}} <div type="button"  class= "btn_modifier">Modifier</div>
+					</div>
+				</form>
+			
+			</div>
+		{% endfor %}
+	</div>
+
+
+	<script type="text/javascript">
+		
+		btns_modifier = document.getElementsByClassName("btn_modifier");
+		input_etat_dossier = document.getElementsByClassName("etat_dossier");
+		input_date_exam = document.getElementsByClassName("list_date_exam");
+		noms = document.getElementsByName('nom')
+		submit_btn = document.getElementsByName('submit')
+
+		lst_submit_btn = []
+		btns_index = []
+		input_etat_dossier_index = []
+		input_date_exam_index = []
+
+		for (i=0; i<btns_modifier.length; i++){
+
+			btns_index.push(btns_modifier[i])
+			input_etat_dossier_index.push(input_etat_dossier[i])
+			input_date_exam_index.push(input_date_exam[i])
+			lst_submit_btn.push(submit_btn[i])
+			
+		}
+
+		for (let n in btns_index){
+			btns_index[n].addEventListener("click", function(){
+
+				noms[n].scrollIntoView()
+				input_etat_dossier_index[n].classList.toggle("list_etat_dossier");
+				input_date_exam_index[n].classList.toggle("input_date_examen");
+				etat_dossier_input = document.querySelector("input[ name = 'etat_dossier']")
+				date_exam_input = document.querySelector("input[ name = 'date_exam']")
+				etat_dossier_input.style = "visibility:hidden"
+				date_exam_input.style = "visibility:hidden"
+				
+			});
+
+			
+			
+		}
+
+		for (let i in lst_submit_btn){
+			lst_submit_btn[i].addEventListener('click', function(e){
+					e.preventDefault();
+					var form = document.getElementsByClassName('candidat')[i]
+					var req = new XMLHttpRequest();
+
+					req.onreadystatechange = function(){
+						if (this.readyState === 4 ){
+							console.log('ca fonctionne')
+						}
+					};
+
+					req.open('POST', "les_inscrits", true)
+					var data = new FormData(form)
+					
+					console.log(data)
+					req.send(data)
+
+
+				})
+		}
+
+	</script>
+{% endblock %}

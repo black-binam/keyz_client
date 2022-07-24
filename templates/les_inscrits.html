@@ -1,0 +1,432 @@
+{% extends 'layout.html' %}
+{% include 'home_layout.html' %}
+
+	
+
+{% block search_content %}
+	<div class="data_ca">
+
+		{% set nbre_cds = [] %}
+
+		{% for dico in data_file %}
+
+			{% if dico.cours_du_soir =="oui" and ( dico.date_exam == date_exam) and (dico.etat_dossier !='Archive' and dico.etat_dossier !='Annule' ) %}
+				{% set _= nbre_cds.append(dico)  %}
+
+			{% endif %}
+		{% endfor %}
+
+
+	
+
+		{% set nbre_cdj = [] %}
+
+		{% for dico in data_file %}
+			{% if dico.cours_de_jour =="oui" and ( dico.date_exam == date_exam) and (dico.etat_dossier !='Archive' and dico.etat_dossier !='Annule' )%}
+				{% set _= nbre_cdj.append(dico) %}
+
+			{% endif %}
+		{% endfor %}
+
+		
+		
+		<div class="fieldset_CA">
+			
+			{% set prix = [] %}
+			
+
+			{% for dico in data_file %}
+				{% if (dico.date == date_fr or dico.date == date_ang or dico.date_exam == date_exam) and (dico.etat_dossier not in ['Archive' ,'Annule'] )   %}
+
+					{% set  _= prix.append(dico.prix|int) %}
+					
+
+				{% endif %}
+
+
+			{% endfor %}
+
+			{% set chiffre_affaire = prix|sum() %}
+
+
+			<div class="ca"> <span>Dossier</span> <h4>{{prix|length}}  </h4></div>
+			<div class="ca"> <span>CA Brut</span> <h4>{{chiffre_affaire}} </h4></div>
+			<div class="ca"> <span>Frais  CMA</span> <h4>{{ (208.5*prix|length)}} </h4></div>
+			<div class="ca"> <span>Frais loc voiture</span> <h4>{{ 100*prix|length}} </h4></div>
+			<div class="ca"> <span>CA Net de frais </span> <h4>{{ chiffre_affaire-308*prix|length}} </h4></div>
+
+			<div  class="ca"><span>Soir</span>   <h4>{{nbre_cds|length}}</h4></div>
+			
+			<div  class="ca"><span>Jour</span>  <h4>{{nbre_cdj|length}}</h4></div>
+
+			{# <div class="ca">Charges sociale: {{ (chiffre_affaire-308*prix|length)*0.22}}</div>
+			<div class="ca">CA Net: {{ (chiffre_affaire-308*prix|length)*0.78}}</div> #}
+			
+
+		</div>
+		
+	</div>
+
+
+	<div class="les_inscrits_container">
+		
+
+		{#------------------Elearning--------------------#}
+		<fieldset >
+			<legend>E-learning</legend>
+		
+			
+
+			<div class="fieldset">
+				{% for dico in data_file %}
+				{# Choix par E-learning #}
+
+				{% if dico.cours_du_soir == "non" and dico.cours_de_jour == "non" and dico.elearning =="oui" and(dico.date_exam == date_exam ) and ( dico.etat_dossier not in [ 'Annule', 'Archive'] ) %}
+					
+					<form class="candidat" method="POST" action="">
+						{{ id_client.csrf_token }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier( class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" >  <br></span>
+						
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span> 
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+
+
+				{# Choix par E-learning et session de formation #}
+
+				{% elif dico.cours_du_soir == "non" and dico.cours_de_jour == "non" and dico.elearning =="oui" and (dico.date == date_fr or dico.date == date_ang) and (dico.etat_dossier == etat_dossier ) %}
+					<form class="candidat" method="POST" action="">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span> 
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+			
+					
+				{% endif %}
+				
+				{% endfor %}
+			</div>
+		</fieldset>
+
+
+
+		{#--------------------------------Cours du soir -------------------------------------------------#}
+		<fieldset >
+			<legend>Cours du soir</legend>
+
+			<div class="fieldset">
+				{% for dico in data_file %}
+
+				{#-----------------------------------------------------------------------------------------------------#}
+				{#----------------- Recherche par session avec etat_dossier -------------------- -----------------------#}
+				{#-----------------------------------------------------------------------------------------------------#}
+
+				{% if dico.cours_du_soir=="oui" and (dico.date == date_fr or dico.date == date_ang ) and (dico.etat_dossier == etat_dossier  ) %}
+					
+					<form class="candidat" method="POST" action="">
+						{{ id_client.csrf_token }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier( class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" >  <br></span>
+						
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span>
+						
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+
+
+					{#-----------------------------------------------------------------------------------------------------#}
+					{#------recherche de tout dossier à l'exception des Annule et Archivepar date de session  ------------#}
+					{#-----------------------------------------------------------------------------------------------------#}
+
+				{% elif dico.cours_du_soir =="oui" and (dico.date == date_fr or dico.date == date_ang) and (etat_dossier == 'Tout_etat' and dico.etat_dossier not in ['Annule', 'Archive'] ) %}
+
+					<form class="candidat" method="POST" action="">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span> 
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+
+					{#-----------------------------------------------------------------------------------------------------#}
+					{#-----------------------------recherche par date d'examen uniquement --------------------------------#}
+					{#-----------------------------------------------------------------------------------------------------#}
+
+					{% elif dico.cours_du_soir =="oui" and dico.date_exam == date_exam and dico.etat_dossier not in ['Annule', 'Archive'] %}
+					<form class="candidat" method="POST" action="">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span> 
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+			
+					
+				{% endif %}
+				
+				{% endfor %}
+			</div>
+		</fieldset>
+
+
+		{% set date_fr = date_fr %}
+		{% set date_ang = date_ang %}
+		{% set etat_dossier = etat_dossier %}
+
+
+		{#--------------------------------Cours de jour -------------------------------------------------#}
+		<fieldset>
+			<legend>Cours de Jour</legend>
+			<div class="fieldset">
+				{% for dico in data_file %}
+
+				{#-----------------------------------------------------------------------------------------------------#}
+				{#----------------- Recherche par session avec etat_dossier -------------------- -----------------------#}
+				{#-----------------------------------------------------------------------------------------------------#}
+
+				{% if dico.cours_de_jour =="oui" and (dico.date == date_fr or dico.date == date_ang) and (dico.etat_dossier == etat_dossier ) %}
+					<form class="candidat" method="POST" action="{{url_for('les_inscrits')}}">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+
+						<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" class = "input_date_exam" name="" value="{{dico.date_exam}}" ></span>
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+
+
+					</form>
+
+				{#-----------------------------------------------------------------------------------------------------#}
+				{# ----on recherche avec les filtres 'date' et renvoie tous les dossiers sauf les archivés et annulé'---- #}
+				{#-----------------------------------------------------------------------------------------------------#}
+
+				{% elif dico.cours_de_jour =="oui" and (dico.date == date_fr or dico.date == date_ang) and (etat_dossier == 'Tout_etat' and dico.etat_dossier not in ['Annule', 'Archive'] ) %}
+					<form class="candidat" method="POST" action="{{url_for('les_inscrits')}}">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						<span>Etat Dossier: {{ dossier.etat_dossier(value = dico.etat_dossier, class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input class = "input_date_exam" type="text" name="" value="{{dico.date_exam}}" ></span> 
+
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+
+				{#-----------------------------------------------------------------------------------------------------#}
+				{# ----------------filtre par date d'examen------------------------- #}
+				{#-----------------------------------------------------------------------------------------------------#}
+
+				{% elif dico.cours_de_jour =="oui" and dico.date_exam == date_exam %}
+					<form class="candidat" method="POST" action="{{url_for('les_inscrits')}}">
+						{{ id_client.csrf_token }}
+						{{ id_client.hidden_tag() }}
+						<span class="nom">Nom: {{id_client.nom(value =dico.nom)}} <br></span>
+						<span>Prénom: {{id_client.prenom(value = dico.prenom)}} <br></span>
+						<span>Telephone: {{ id_client.tel(value = dico.tel) }} <br></span>
+						<span class="solde_cpf">Prix: {{choix_formation.prix(value = dico.prix)}} <br></span>
+						<span class="solde_cpf">Accompte: {{choix_formation.accompte(value = dico.accompte) }} <br></span>
+						<span class="solde_cpf">Solde Cpf: {{choix_formation.solde_cpf(value = dico.solde_cpf) }} <br></span>
+						<span>Rest à payer: {{ choix_formation.reste_a_payer(value = dico.reste_a_payer) }} <br></span>
+						<span>Session: {{ choix_formation.date(value = dico.date_entree )}} <br></span>
+						<span>Mot de passe: <input type="text" name="password" value="{{dico.mot_de_pass}}"> <br></span>
+						<span>E-Mail: {{id_client.email(value = dico.email) }} <br></span>
+						
+						{#---------------------------------------------------------------------#}
+
+						<span>Etat Dossier: {{ dossier.etat_dossier(class ="etat_dossier") }} <input type="text" name="" value="{{dico.etat_dossier}}" ><br></span>
+
+						{#---------------------------------------------------------------------#}
+
+
+						<span>Date examen: {{ id_client.date_exam( class ="list_date_exam") }} <input type="text" name="" value="{{dico.date_exam}}" ></span> 
+						
+						<div class="btns_group">
+							{{id_client.submit(class="submit")}} <div type="button" class= "btn_modifier">Modifier</div>
+						</div>
+					</form>
+				
+				{% endif %}
+
+
+
+
+				{% endfor %}
+			</div>
+		</fieldset>
+</div>
+
+
+
+
+
+	<script type="text/javascript">
+		input_cpf = document.getElementsByName('prix')
+		lst_cpf = []
+
+		var solde = 0
+		var solde_net = 0
+
+		for(i=0; i<input_cpf.length; i++){
+			lst_cpf.push(parseInt(input_cpf[i].value))
+		}
+
+		for(i=0; i<lst_cpf.length; i++){
+			solde+=lst_cpf[i]
+		}
+
+		for(i=0; i<lst_cpf.length; i++){
+			if(lst_cpf[i]>=1140){
+				solde_net = solde - 308*lst_cpf.length
+				
+				console.log(lst_cpf[i], ' ', solde_net)
+			}
+		}
+
+		console.log('CA Brute: ',solde)
+
+		console.log('CA Net: ',solde_net)
+
+
+
+		btns_modifier = Array.from(document.getElementsByClassName("btn_modifier"));
+		input_etat_dossier = Array.from(document.getElementsByClassName("etat_dossier"));
+		input_date_exam = Array.from(document.getElementsByClassName("list_date_exam"));
+		noms = document.getElementsByName('nom')
+		submit_btn = Array.from(document.getElementsByName('submit'))
+		
+
+		
+		btns_modifier.forEach( (btn)=>{
+
+			btn.addEventListener("click", function(){
+				/*noms[n].scrollIntoView()*/
+				input_etat_dossier[btns_modifier.indexOf(btn)].classList.toggle("list_etat_dossier");
+				input_etat_dossier[btns_modifier.indexOf(btn)].nextElementSibling.style = "visibility:hidden"
+
+				input_date_exam[btns_modifier.indexOf(btn)].classList.toggle("input_date_examen");
+				input_date_exam[btns_modifier.indexOf(btn)].nextElementSibling.style = "visibility:hidden"
+
+			})
+
+		})
+
+		submit_btn.forEach( (btn) =>{
+			btn.addEventListener('click', function(e){
+					e.preventDefault();
+
+					var form = Array.from(document.getElementsByClassName('candidat'))[submit_btn.indexOf(btn)]
+					var req = new XMLHttpRequest();
+
+					req.onreadystatechange = function(){
+						if (this.readyState === 4 ){
+							console.log('ca fonctionne')
+						}
+					};
+
+					req.open('POST', "les_inscrits", true)
+					
+					var data = new FormData(form)
+					console.log(form)
+					req.send(data)
+
+				})
+		})
+
+		
+
+	</script>
+
+{% endblock %}

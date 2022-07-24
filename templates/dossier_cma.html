@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+
+		.form{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			width: 300px;
+			margin:auto;
+			border-radius: 5px;
+			box-shadow: 5px 5px 10px #edf2f4;
+
+		}
+		
+		li{
+			list-style-type: none;
+		}
+
+		.formule>legend{
+			background: #2ec4b6;
+			border-top-right-radius:10px; 
+			color: white;
+			width: 200px
+		}
+
+		.formule{
+			margin-bottom: 20px;
+			border:none;
+			box-shadow: 5px 5px 10px grey;
+			width: 250px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+
+		.top_legend{
+			background:#d90429;
+			color: white;
+			width: 300px;
+			border-top-right-radius:10px;
+			border-top-left-radius:  10px;
+			padding: 5px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 20px
+		}
+
+
+		h3{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="top_legend">
+		<h3>ETAT DOSSIER CMA</h3>
+	</div>
+
+	<div>
+		<form class='form' method = 'POST' action="{{url_for('dossier_client')}}">
+			{{ dossier.hidden_tag() }}
+
+			<fieldset class="formule">
+				<legend>Dossier CMA créé</legend>
+				{{dossier.radio}}
+			</fieldset>
+
+			<fieldset class="formule">
+				<legend>Documents Upload</legend>
+				{{dossier.doc_up}}
+			</fieldset>
+
+			<fieldset class="formule">
+				<legend>Frais cma payés</legend>
+				{{dossier.fr_cma}}
+			</fieldset>
+
+			<fieldset class="formule">
+				<legend>Frais Cma payés par</legend>
+				{{dossier.fr_cma_pay}}
+			</fieldset>
+
+			<button type="submit" name="dossier_client" > valider </button>
+		</form>
+
+		<button type="button" id = "pge_prec"name="page_ac_client"> page précédente </button>
+	</div>
+
+
+	<form>
+	<button type="submit" formaction ="{{url_for('erase_session')}}" name="terminer" value ='Terminer'> Terminer </button>
+	</form>
+
+
+	<script type="text/javascript">
+
+
+		page_precedent = document.getElementById('pge_prec')
+		page_precedent.addEventListener('click', function(){
+			window.history.back()
+		})
+	</script>
+</body>
+</html>

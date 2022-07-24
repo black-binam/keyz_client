@@ -1,0 +1,87 @@
+#form_pic_profile{
+    width:62px;
+    height:62px;
+}
+
+.pic_div{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:center;
+    height:60px;
+    width: 60px;
+  
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color:grey;
+    background:white;
+    background-size: cover;
+    overflow: hidden;
+    cursor: pointer;
+    
+    
+}
+
+.pic_div input{
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    border-radius:50%;
+    z-index: 2;
+    /* padding: 10px; */
+    /* border: solid; */
+    /* transform: translate(0px, 6px); */
+}
+.pic_div input[id='submit_btn']{
+    visibility:
+    hidden;
+}
+
+.material-symbols-outlined{
+    font-weight:bold;
+    font-size: 20px;
+    opacity:1
+
+}
+
+
+.pic_div::before{
+    content: "photo_camera";
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    height: inherit;
+    width:inherit;
+    color: #ffffff;
+    font-family:'Material Symbols Outlined';
+    font-size: 1rem;
+    position: absolute;
+    background: rgb(0,0,0,0.3);
+    opacity: 0;
+    transition:0.5s;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+/* pour que le content soit visibile il faut modifier le top*/
+.pic_div::after{
+    content:"Update";
+    color: #ffffff;
+    font-weight: bold;
+    position: absolute;
+    padding-top:20px;
+    opacity: 0;
+    font-size: 0.5rem;
+    transition: 0.5s;
+}
+
+
+.pic_div:hover:after, .pic_div:hover:before{
+    opacity:1;
+}
+
+
+
